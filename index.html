@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбей телефон</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        .box {
+            width: 150px;
+            height: 150px;
+            background: #2a2a2a;
+            border: 3px solid #0088cc;
+            border-radius: 15px;
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+        }
+        button {
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📱 Лотерея Телефонов</h1>
+    <div class="box" id="box">📦</div>
+    <button onclick="openBox()">Открыть коробку</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        const phones = [
+            { name: "Кнопочный телефон 📞", rarity: "Обычный (70%)", chance: 0.7 },
+            { name: "Xiaomi Redmi Note 📱", rarity: "Редкий (20%)", chance: 0.9 },
+            { name: "iPhone 15 Pro 🍏", rarity: "Эпический (8%)", chance: 0.98 },
+            { name: "Samsung Galaxy Fold 💎", rarity: "Легендарный (2%)", chance: 1.0 }
+        ];
+
+        function openBox() {
+            const rand = Math.random();
+            let selectedPhone = phones[0];
+
+            for (let phone of phones) {
+                if (rand < phone.chance) {
+                    selectedPhone = phone;
+                    break;
+                }
+            }
+
+            document.getElementById("box").innerText = "🎁";
+            document.getElementById("result").innerHTML = 
+                `Вы выбили:<br><strong>${selectedPhone.name}</strong><br>(${selectedPhone.rarity})`;
+        }
+    </script>
+</body>
+</html>
